@@ -1,40 +1,30 @@
-# cluster
+# Long Term Network Plan
 
-# Control Node
+The networks shall be accessable through a single VPN. Within that VPN, there shall eb three networks:
 
-* Ubuntu server 20 amd
-* Don't install OpeSSH -- install dropbear
-* Remove open-vm-tools service
-* Stop and disable multipath-tools service
+1. Kubernetes - there shall be a kubernetes cluster, consisting of controllers and workers
+2. ESXi / Proxmox - there shall be a cluster used to manage and deploy VMs, using a service similar to ESXi or Proxmox
+3. Workload Manager - there shall be a cluster with a workload manager like SLURM, consisting of high quality CPUs and GPUs
 
-### Commands
-```bash
-sudo apt update
-sudo apt install dropbear -y
-systemctl stop open-vm-tools
-sudo systemctl disable open-vm-tools
-sudo rm -rf /etc/systemd/system/open-vm-tools.service.requires/
-sudo rm /usr/lib/systemd/system/open-fm-tools.service
-sudo rm /etc/init.d/open-vm-tools
-systemctl daemon-reload
-sudo systemctl reset-failed
-sudo apt -y upgrade && sudo systemctl reboot
-curl -sfL https://get.k3s.io | sh -
+## Machines
 
-GITHUB_URL=https://github.com/kubernetes/dashboard/releases
-VERSION_KUBE_DASHBOARD=$(curl -w '%{url_effective}' -I -L -s -S ${GITHUB_URL}/latest -o /dev/null | sed -e 's|.*/||')
-sudo k3s kubectl create -f https://raw.githubusercontent.com/kubernetes/dashboard/${VERSION_KUBE_DASHBOARD}/aio/deploy/recommended.yaml
-mkdir dashboard
-cd dashboard
-wget http://staging:8000/dashboard.admin-user.yml
-wget http://staging:8000/dashboard.admin-user-role.yml
-sudo k3s kubectl create -f dashboard.admin-user.yml -f dashboard.admin-user-role.yml
-sudo kubectl proxy --accept-hosts='^192\.168\.0\.[0-9][0-9][0-9]'
-```
+* `192.168.0.5`: kubernetes controller
+	* 30001: kubernetes dashboard
+	* 21: SSH Dropbear server 
 
-* Set static ip with https://linuxize.com/post/how-to-configure-static-ip-address-on-ubuntu-20-04/
+## Necesarry Services
 
-### TODO
+### Kubernetes Deployments
 
-* Configure rsyslog
-* Get dashboard working https://sondnpt00343.medium.com/deploying-a-publicly-accessible-kubernetes-dashboard-v2-0-0-betax-8e39680d4067
+The following services shall be managed through Kubernetes:
+
+1. Kubernetes dashboard
+2. Hardware managment and monitoring
+3. DNS server
+4. KFS Dashboard
+
+### Kubernetes Nodes
+
+All nodes in kubernetes -- workers and controllers -- shall run the following services:
+
+* SSH / 21 (Dropbear)
