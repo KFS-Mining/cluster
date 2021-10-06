@@ -32,6 +32,8 @@ sudo k3s kubectl create -f dashboard.admin-user.yml -f dashboard.admin-user-role
 sudo kubectl proxy --accept-hosts='^192\.168\.0\.[0-9][0-9][0-9]'
 ```
 
+* Set static ip with https://linuxize.com/post/how-to-configure-static-ip-address-on-ubuntu-20-04/
+
 ### TODO
 
 * Configure rsyslog
