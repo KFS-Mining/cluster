@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+  labels:
+    app: nginx
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: crypto-scraper
+        image: registry.gitlab.com/kfs-mining/market-data-svc/crypto_scraping_svc:latest
+        - containerPort: 8080
+      imagePullSecrets:
+        - name: gitlab-auth

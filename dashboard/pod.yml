@@ -1,10 +1,21 @@
-apiVersion: v1
-kind: Pod
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: nginx
+  name: mining-dashboard
+  labels:
+    app: mining-dashboard
 spec:
-  containers:
-  - name: dashboard
-    image: registry.gitlab.com/kfs-mining/dashboard/dashboard:latest
-  imagePullSecrets:
-    - name: gitlab-auth
+  selector:
+    matchLabels:
+      app: mining-dashboard
+  template:
+    metadata:
+      labels:
+        app: mining-dashboard
+    spec:
+      containers:
+      - name: mining-dashboard
+        image: registry.gitlab.com/kfs-mining/dashboard/dashboard:latest
+        - containerPort: 3030
+      imagePullSecrets:
+        - name: gitlab-auth
