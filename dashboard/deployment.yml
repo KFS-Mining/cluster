@@ -16,6 +16,7 @@ spec:
       containers:
       - name: mining-dashboard
         image: registry.gitlab.com/kfs-mining/dashboard/dashboard:latest
+        ports:
         - containerPort: 3030
       imagePullSecrets:
         - name: gitlab-auth
