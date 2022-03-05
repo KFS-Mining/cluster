@@ -1,0 +1,16 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: crypto-scraper
+spec:
+  schedule: "0 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: crypto-scraper
+            image: registry.gitlab.com/kfs-mining/market-data-svc/crypto_scraping_svc:latest
+          imagePullSecrets:
+            - name: gitlab-auth
+          restartPolicy: Never
