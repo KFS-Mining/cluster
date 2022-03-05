@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+spec:
+  containers:
+  - name: crypto-scraper
+    image: registry.gitlab.com/kfs-mining/market-data-svc/crypto_scraping_svc:latest
+  imagePullSecrets:
+    - name: gitlab-auth

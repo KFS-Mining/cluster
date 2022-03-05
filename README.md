@@ -8,6 +8,8 @@ The networks shall be accessable through a single VPN. Within that VPN, there sh
 
 ## Machines
 
+### Calvin-network
+
 * `192.168.0.5`: kubernetes controller
 	* 30001: kubernetes dashboard
 	* 21: SSH Dropbear server 
@@ -16,7 +18,13 @@ The networks shall be accessable through a single VPN. Within that VPN, there sh
 * `192.168.0.11`: pi worker
 	* 21: SSH Dropbear server 
 * `192.168.0.12`: pi worker
-	* 21: SSH Dropbear server 
+	* 21: SSH Dropbear server
+
+### External Services
+
+* `kfscluster.tplinkdns.com:3333` SSH access to the K3S controller
+* `kfscluster.tplinkdns.com:2222` kubernetes dashboard on the K3S controller
+* `mongo.dleroys.synology.me:9696` MongoDB database
 
 ## Necesarry Services
 
