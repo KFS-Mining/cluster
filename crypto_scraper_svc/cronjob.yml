@@ -12,7 +12,8 @@ spec:
           - name: crypto-scraper
             image: registry.gitlab.com/kfs-mining/market-data-svc/crypto_scraping_svc:latest
             command:
-            - python coin_data_scraper.py
+            - python
+            - coin_data_scraper.py
           imagePullSecrets:
             - name: gitlab-auth
           restartPolicy: Never
